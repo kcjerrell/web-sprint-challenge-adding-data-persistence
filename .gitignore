@@ -123,3 +123,4 @@ dist
 
 # Databases
 test.db3
+data/lambda.db3
