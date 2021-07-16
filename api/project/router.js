@@ -10,6 +10,7 @@ const validateProject = (req, res, next) => {
 
 	if (!project_name || typeof project_name !== 'string' || project_name.length === 0) {
 		res.status(400).json({ message: "project name is required" });
+		return;
 	}
 
 	req.project = {
@@ -27,7 +28,11 @@ router.get('/:id?', (req, res, next) => {
 	const promise = req.params.id ? projects.getById(req.params.id) : projects.getAll();
 
 	promise.then(result => {
-		res.status(200).json(result || []);
+		if (result) {
+			res.status(200).json(result);
+		}
+		else
+			res.status(404).json({ message: "could not find" });
 	},
 		err => next(err)
 	)

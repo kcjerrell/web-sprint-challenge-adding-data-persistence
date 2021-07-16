@@ -12,7 +12,8 @@ async function getAll() {
 async function getById(project_id) {
 	const result = await db('projects').where({project_id}).first();
 
-	setCompleted(result);
+	if (result)
+		setCompleted(result);
 
 	return result;
 }
